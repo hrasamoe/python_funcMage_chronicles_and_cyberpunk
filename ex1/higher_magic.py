@@ -47,3 +47,9 @@ def spell_sequence(
 if __name__ == "__main__":
     test_values = [12, 16, 13]
     test_targets = ['Dragon', 'Goblin', 'Wizard', 'Knight']
+
+    def heal(target: str, power: int) -> str:
+        return f"Heal restores {target} for {power} HP"
+
+    def is_dragon(target: str, power: int) -> str:
+        return target == "Dragon"
