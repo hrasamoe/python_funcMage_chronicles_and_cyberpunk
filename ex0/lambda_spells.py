@@ -25,3 +25,33 @@ def mage_stats(mages: list[dict[str, any]]) -> dict[str, any]:
     }
 
 
+if __name__ == "__main__":
+    artifacts = [
+        {"name": "Water Chalice", "power": 80, "type": "weapon"},
+        {"name": "Water Chalice", "power": 87, "type": "weapon"},
+        {"name": "Fire Staff", "power": 115, "type": "weapon"},
+        {"name": "Crystal Orb", "power": 120, "type": "weapon"},
+    ]
+    spells = ['meteor', 'fireball', 'tornado', 'freeze']
+    mages = [
+        {"name": "Phoenix", "power": 89, "element": "fire"},
+        {"name": "Alex", "power": 92, "element": "shadow"},
+        {"name": "Ember", "power": 65, "element": "lightning"},
+        {"name": "Ember", "power": 69, "element": "water"},
+        {"name": "Jordan", "power": 76, "element": "light"},
+    ]
+    sorted_artifact = artifact_sorter(artifacts)
+    for i, artifact in enumerate(sorted_artifact[:-1]):
+        next_artifact = sorted_artifact[i + 1]
+        print(f"{artifact['name']} ({artifact['power']}) comes before "
+              f"{next_artifact['name']} ({next_artifact['power']})")
+    print()
+    power_filtered = power_filter(mages, 70)
+    for element in power_filtered:
+        print(element)
+    print()
+    spell_transformed = spell_transformer(spells)
+    for spell in spell_transformed:
+        print(spell, end=" ")
+    print()
+    print(mage_stats(mages))
