@@ -26,3 +26,30 @@ def power_validator(min_power: int) -> Callable[..., Any]:
             return "Insufficient power for this spell"
         return wrapper
     return func_wraps
+
+
+def retry_spell(max_attempts: int
+                ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+        wraps(func)
+
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
+            for attempt in range(1, max_attempts + 1):
+                try:
+                    return func(*args, **kwargs)
+                except Exception:
+                    print(f"Spell failed, retrying... (attempt {attempt}"
+                          f"/{max_attempts})")
+            return f"Spell casting failed after {max_attempts} attempts"
+        return wrapper
+    return decorator
+
+
+class MageGuild:
+    @power_validator(10)
+    def cast_spell(self, spell_name: str, power: int) -> str:
+        return f'Successfully cast {spell_name} with {power} power'
+
+    @staticmethod
+    def validate_mage_name(name: str) -> bool:
+        return len(name) >= 3 and name.replace(' ', '').isalpha()
