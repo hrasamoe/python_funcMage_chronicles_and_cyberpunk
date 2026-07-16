@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 from typing import Callable
 
 
@@ -37,3 +39,35 @@ def memory_vault() -> dict[str, Callable[..., object]]:
         return vault.get(key, 'Memory not found')
 
     return {'store': store, 'recall': recall}
+
+
+if __name__ == "__main__":
+    print("Testing mage counter...")
+    counter_a = mage_counter()
+    counter_b = mage_counter()
+    print(f"counter_a call 1: {counter_a()}")
+    print(f"counter_a call 2: {counter_a()}")
+    print(f"counter_b call 1: {counter_b()}")
+    print()
+
+    print("Testing spell accumulator...")
+    accumulator = spell_accumulator(100)
+    print(f"Base 100, add 20: {accumulator(20)}")
+    print(f"Base 100, add 20: {accumulator(30)}")
+    print()
+
+    print("Tesint enchantment factory...")
+    flaming = enchantment_factory('Flaming')
+    frozen = enchantment_factory('Frozen')
+    print(flaming('Sword'))
+    print(frozen('Shield'))
+    print()
+
+    print("Testing memory vault...")
+    vault = memory_vault()
+    store = vault['store']
+    recall = vault['recall']
+    print("Store 'secret' = 42")
+    store('secret', 42)
+    print(f"Recall 'secret': {recall('secret')}")
+    print(f"Recall 'unknown': {recall('unkown')}")
