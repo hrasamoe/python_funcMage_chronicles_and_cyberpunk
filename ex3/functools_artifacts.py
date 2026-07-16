@@ -65,3 +65,22 @@ def spell_dispatcher() -> Callable[[any], str]:
         return f"Damage spell: {value} damage"
 
     return spell_system
+
+
+if __name__ == "__main__":
+    list_spells = [10, 20, 30, 40]
+    print("Testing spell reducer...")
+    print(f"Sum: {spell_reducer(list_spells, 'add')}")
+    print(f"Product: {spell_reducer(list_spells, 'multiply')}")
+    print(f"Max: {spell_reducer(list_spells, 'max')}\n")
+    print("Testing memoized fibonacci...")
+    print(f"Fib(0): {memoized_fibonacci(0)}")
+    print(f"Fib(1): {memoized_fibonacci(1)}")
+    print(f"Fib(10): {memoized_fibonacci(10)}")
+    print(f"Fib(15): {memoized_fibonacci(15)}\n")
+    print("Testing spell dispatcher...")
+    spell = spell_dispatcher()
+    print(spell(42))
+    print(spell('fireball'))
+    print(spell([10, 20, 30]))
+    print(spell(3.14))
