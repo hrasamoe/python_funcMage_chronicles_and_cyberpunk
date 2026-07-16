@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 import time
 from collections.abc import Callable
 from functools import wraps
@@ -53,3 +54,14 @@ class MageGuild:
     @staticmethod
     def validate_mage_name(name: str) -> bool:
         return len(name) >= 3 and name.replace(' ', '').isalpha()
+
+
+if __name__ == "__main__":
+    print("Testing spell timer...")
+
+    @spell_timer
+    def fireball() -> str:
+        time.sleep(2.30)
+        return "Fireball cast!"
+    result = fireball()
+    print(f"Result: {result}")
