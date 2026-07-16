@@ -66,6 +66,10 @@ if __name__ == "__main__":
     result = fireball()
     print(f"Result: {result}")
 
+    @power_validator(10)
+    def cast_lightning(power: int, target: str) -> str:
+        return f'Lightning hits {target} for {power} damage'
+
     @retry_spell(3)
     def cast_lightning_bolt(target: str) -> str:
         import random
@@ -73,3 +77,11 @@ if __name__ == "__main__":
             raise RuntimeError("The mana stream was interrupted!")
         return f"Lightning bolt hits {target}!"
     print(cast_lightning_bolt())
+    print('\nTesting MageGuild - cast_spell...')
+    guild = MageGuild()
+    print(guild.cast_spell('Lightning', power=15))
+    print(guild.cast_spell('Fireball', power=5))
+    print('-' * 20)
+    print('Testing power validator...')
+    print(cast_lightning(power=15, target='Dragon'))
+    print(cast_lightning(power=5, target='Dragon'))
