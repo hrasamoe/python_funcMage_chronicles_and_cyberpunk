@@ -45,11 +45,27 @@ def spell_sequence(
 
 
 if __name__ == "__main__":
-    test_values = [12, 16, 13]
+    test_values = [12, 16, 13, 10]
     test_targets = ['Dragon', 'Goblin', 'Wizard', 'Knight']
 
     def heal(target: str, power: int) -> str:
-        return f"Heal restores {target} for {power} HP"
+        return f"Heals {target}"
+
+    def fireball(target: str, power: int) -> str:
+        return f"Fireball hits {target}"
+
+    def displayPower(target: str, power: int) -> str:
+        return f"{power}"
 
     def is_dragon(target: str, power: int) -> str:
         return target == "Dragon"
+
+    print("Testing spell combiner...")
+    combined = spell_combiner(fireball, heal)
+    result = combined(test_targets[0], test_values[0])
+    print(f'Combined spell result: {result[0]}, {result[1]}\n')
+    print("Testing power amplifier...")
+    amplifier = power_amplifier(displayPower, 3)
+    result = amplifier(test_targets[1], test_values[3])
+    print(f"Original: {displayPower(test_targets[1], test_values[3])},"
+          f" Amplified: {result}")
