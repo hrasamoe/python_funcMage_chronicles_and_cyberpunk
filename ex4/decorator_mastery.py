@@ -61,7 +61,15 @@ if __name__ == "__main__":
 
     @spell_timer
     def fireball() -> str:
-        time.sleep(2.30)
+        time.sleep(0.30)
         return "Fireball cast!"
     result = fireball()
     print(f"Result: {result}")
+
+    @retry_spell(3)
+    def cast_lightning_bolt(target: str) -> str:
+        import random
+        if random.random() > 0.3:  # 70% de chances d'échouer
+            raise RuntimeError("The mana stream was interrupted!")
+        return f"Lightning bolt hits {target}!"
+    print(cast_lightning_bolt())
