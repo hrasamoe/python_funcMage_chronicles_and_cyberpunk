@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 
 from functools import reduce, lru_cache, singledispatch, partial
-from typing import Callable
+from typing import Callable, Any
 from operator import add, mul
 
 
@@ -25,7 +25,8 @@ def spell_reducer(spells: list[int], operation: str) -> int:
 
 
 def partial_enchanter(
-        base_enchantment: Callable[..., str]) -> dict[str, Callable[..., str]]:
+    base_enchantment: Callable[..., str]
+) -> dict[str, Callable[..., str]]:
     return {
         'fire': partial(base_enchantment, power=50, element="fire"),
         'ice': partial(base_enchantment, power=50, element="ice"),
@@ -46,10 +47,10 @@ def memoized_fibonacci(n: int) -> int:
         return -1
 
 
-def spell_dispatcher() -> Callable[[any], str]:
+def spell_dispatcher() -> Callable[[Any], str]:
 
     @singledispatch
-    def spell_system(value: any) -> str:
+    def spell_system(value: Any) -> str:
         return "Unknown spell type"
 
     @spell_system.register
@@ -57,7 +58,7 @@ def spell_dispatcher() -> Callable[[any], str]:
         return f"Enchantment: {value}"
 
     @spell_system.register
-    def _(value: list) -> str:
+    def _(value: list[Any]) -> str:
         return f"Multi-cast: {len(value)} spells"
 
     @spell_system.register

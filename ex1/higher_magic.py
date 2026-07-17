@@ -35,11 +35,12 @@ def conditional_caster(
 
 
 def spell_sequence(
-        spells: Callable[[str, int], str]) -> Callable[[str, int], list[str]]:
+    spells: list[Callable[[str, int], str]]
+) -> Callable[[str, int], list[str]]:
     def cast_spell(target: str, power: int) -> list[str]:
         result = []
-        for _ in spells:
-            result.append(_(target, power))
+        for spell in spells:
+            result.append(spell(target, power))
         return result
     return cast_spell
 
@@ -57,15 +58,17 @@ if __name__ == "__main__":
     def displayPower(target: str, power: int) -> str:
         return f"{power}"
 
-    def is_dragon(target: str, power: int) -> str:
+    def is_dragon(target: str, power: int) -> bool:
         return target == "Dragon"
 
     print("Testing spell combiner...")
     combined = spell_combiner(fireball, heal)
-    result = combined(test_targets[0], test_values[0])
-    print(f'Combined spell result: {result[0]}, {result[1]}\n')
+    combined_result = combined(test_targets[0], test_values[0])
+    print(f'Combined spell result: {combined_result[0]},'
+          f'{combined_result[1]}\n')
+
     print("Testing power amplifier...")
     amplifier = power_amplifier(displayPower, 3)
-    result = amplifier(test_targets[1], test_values[3])
+    amplified_result = amplifier(test_targets[1], test_values[3])
     print(f"Original: {displayPower(test_targets[1], test_values[3])},"
-          f" Amplified: {result}")
+          f" Amplified: {amplified_result}")
