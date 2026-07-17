@@ -1,8 +1,9 @@
 #! /usr/bin/env python3
 
 from functools import reduce, lru_cache, singledispatch, partial
-from typing import Callable, Any
+from typing import Any
 from operator import add, mul
+from collections.abc import Callable
 
 
 def spell_reducer(spells: list[int], operation: str) -> int:
