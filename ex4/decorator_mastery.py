@@ -32,8 +32,7 @@ def power_validator(min_power: int) -> Callable[..., Any]:
 def retry_spell(max_attempts: int
                 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
-        wraps(func)
-
+        @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             for attempt in range(1, max_attempts + 1):
                 try:

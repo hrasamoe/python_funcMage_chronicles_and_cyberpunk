@@ -9,20 +9,16 @@ from collections.abc import Callable
 def spell_reducer(spells: list[int], operation: str) -> int:
     if not spells:
         return 0
-    try:
-        if operation == 'add':
-            return reduce(add, spells)
-        elif operation == 'multiply':
-            return reduce(mul, spells)
-        elif operation == 'max':
-            return reduce(max, spells)
-        elif operation == 'min':
-            return reduce(min, spells)
-        else:
-            raise TypeError
-    except TypeError as e:
-        print(f"-- Operation <<{operation}>> is Unkown {e}")
+    operations: dict[str, Callable[[int, int], int]] = {
+        'add': add,
+        'multiply': mul,
+        'max': max,
+        'min': min,
+    }
+    if operation not in operations:
+        print(f"-- Operation <<{operation}>> is Unknown")
         return -1
+    return reduce(operations[operation], spells)
 
 
 def partial_enchanter(
